@@ -13,6 +13,6 @@ namespace MyPassword.Info
     {
         Task CreateInfo(CreateInfoDto input);
 
-        Task<PagedResultDto<PasswordInfo>> GetInfoByPages(GetInfoByPageInput input);
+        Task<PagedResultDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input);
     }
 }

@@ -29,21 +29,21 @@ namespace MyPassword.Info
             await _passwordInfoRepository.InsertAsync(pi);
         }
 
-        public async Task<PagedResultDto<PasswordInfo>> GetInfoByPages(GetInfoByPageInput input)
+        public async Task<PagedResultDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input)
         {
             var query = _passwordInfoRepository.GetAll()
-                .WhereIf(input.Title.IsNullOrEmpty(), t => t.Title.Contains(input.Title))
-                .WhereIf(input.UserName.IsNullOrEmpty(), t => t.UserName.Contains(input.UserName));
+                .WhereIf(!input.Title.IsNullOrEmpty(), t => t.Title.Contains(input.Title))
+                .WhereIf(!input.UserName.IsNullOrEmpty(), t => t.UserName.Contains(input.UserName));
 
             query = query.OrderBy(r => r.CreationTime);
 
             var data = query.PageBy(input).ToList();
             var total = query.Count();
 
-            return await Task.FromResult(new PagedResultDto<PasswordInfo>()
+            return await Task.FromResult(new PagedResultDto<PasswordInfoDto>()
             {
                 TotalCount = total,
-                Items = data
+                Items = data.MapTo<List<PasswordInfoDto>>()
             });
         }
     }

@@ -1,4 +1,65 @@
-﻿@using System.Web.Optimization
+﻿@using MyPassword.Info
+@using Abp.Web.Mvc.Extensions
+@using System.Web.Optimization
+@model Abp.Application.Services.Dto.PagedResultDto<MyPassword.Info.Dto.PasswordInfoDto> 
 @{
     ViewBag.ActiveMenu = PageNames.Infos; //The menu item will be active for this page.
 }
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Infos/Index.js")
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>@L("MyPassword")</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-black"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@L("Title")</th>
+                            <th>@L("UserName")</th>
+                            <th>@L("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var item in Model.Items)
+                       {
+                           <tr>
+                               <td>@item.Title</td>
+                               <td>@item.UserName</td>
+                               <td class="dropdown">
+                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                       <i class="material-icons">menu</i>
+                                   </a>
+                                   <ul class="dropdown-menu pull-right">
+                                       <li><a href="#" class="waves-effect waves-block edit-user" data-pd-id="@item.Id" data-toggle="modal" data-target="#UserEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                       <li><a href="#" class="waves-effect waves-block delete-user" data-pd-id="@item.Id" data-pd-title="@item.Title"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                   </ul>
+                               </td>
+                           </tr>
+                       }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#RoleCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div> 
+        </div>
+     </div>
+</div>
+
+
+

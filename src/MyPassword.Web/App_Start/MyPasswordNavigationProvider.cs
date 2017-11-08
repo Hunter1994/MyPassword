@@ -52,7 +52,7 @@ namespace MyPassword.Web
                         PageNames.Infos,
                         L("Infos"),
                         url: "Infos",
-                        icon: "info",
+                        icon: "lock",
                         requiredPermissionName: PermissionNames.Pages_Info
                     )
                 )
