@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text;
 
 namespace MyPassword.Web.Helpers
 {
@@ -45,5 +46,6 @@ namespace MyPassword.Web.Helpers
         {
             return MvcHtmlString.Create(string.Join(Environment.NewLine, ScriptBlock.PartialViewScripts.Select(s => s.ToString())));
         }
+
     }
 }
