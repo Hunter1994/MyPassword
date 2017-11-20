@@ -29,6 +29,22 @@ namespace MyPassword.Info
             await _passwordInfoRepository.InsertAsync(pi);
         }
 
+        public async Task DeleteInfo(int id)
+        {
+            await _passwordInfoRepository.DeleteAsync(id);
+        }
+
+        public async Task EditInfo(PasswordInfoDto input)
+        {
+            var info = await _passwordInfoRepository.GetAsync(input.Id);
+            ObjectMapper.Map(input, info);
+        }
+
+        public async Task<PasswordInfoDto> Get(int id)
+        {
+            return (await _passwordInfoRepository.GetAsync(id)).MapTo<PasswordInfoDto>();
+        }
+
         public async Task<PagedResultDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input)
         {
             var query = _passwordInfoRepository.GetAll()

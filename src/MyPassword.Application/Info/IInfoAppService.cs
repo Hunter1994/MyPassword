@@ -14,5 +14,11 @@ namespace MyPassword.Info
         Task CreateInfo(CreateInfoDto input);
 
         Task<PagedResultDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input);
+
+        Task DeleteInfo(int id);
+
+        Task<PasswordInfoDto> Get(int id);
+
+        Task EditInfo(PasswordInfoDto input);
     }
 }

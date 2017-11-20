@@ -7,7 +7,7 @@ using Abp.AutoMapper;
 using Abp.Application.Services.Dto;
 namespace MyPassword.Info.Dto
 {
-    [AutoMapFrom(typeof(PasswordInfo))]
+    [AutoMapFrom(typeof(PasswordInfo)),AutoMapTo(typeof(PasswordInfo))]
     public class PasswordInfoDto:EntityDto
     {
         public string Title { get; set; }

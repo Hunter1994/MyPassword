@@ -1,16 +1,14 @@
-﻿using Abp.AutoMapper;
+﻿using Abp.Auditing;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using Abp.Auditing;
 
 namespace MyPassword.Info.Dto
 {
-    [AutoMapTo(typeof(PasswordInfo))]
-    public class CreateInfoDto
+    public class EditInfoDto
     {
         [Required]
         public string Title { get; set; }
@@ -23,6 +21,5 @@ namespace MyPassword.Info.Dto
         [Required]
         [DisableAuditing]
         public string Detail { get; set; }
-
     }
 }
