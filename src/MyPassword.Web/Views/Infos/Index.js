@@ -39,7 +39,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: abp.appPath + "Infos/EditInfoModel?id=" + infoId,
+                url: abp.appPath + "Infos/EditInfoModal?id=" + infoId,
                 type: "post",
                 contentType: "application/html",
                 success: function (content) {

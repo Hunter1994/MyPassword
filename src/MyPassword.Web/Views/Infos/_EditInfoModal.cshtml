@@ -1,0 +1,43 @@
+﻿@using MyPassword.Web.Models.Common.Modals
+@model MyPassword.Info.Dto.PasswordInfoDto
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml",new ModalHeaderViewModel(L("EditInfo")))
+
+<div class="modal-body">
+    <form name="InfoEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="row clearfix">
+            <div class="col-sm-12">
+               
+                        <input id="title" type="text" name="Title" value="@Model.Title" required maxlength="32" minlength="2" class="validate form-control">
+                   
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+               
+                        <input id="username" type="text" name="UserName" value="@Model.UserName" required maxlength="32" minlength="2" class="validate form-control">
+                       
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                        <input id="password" type="text" name="Password" value="@Model.Password" required maxlength="32" minlength="2" class="validate form-control">
+                       
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                    <textarea id="detail" name="Detail" >@Model.Detail</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+<script src="~/Views/Infos/_EditInfoModal.js"></script>

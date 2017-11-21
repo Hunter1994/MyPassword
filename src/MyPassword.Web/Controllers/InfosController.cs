@@ -24,5 +24,11 @@ namespace MyPassword.Web.Controllers
            var ps= await _infoAppService.GetInfoByPages(new Info.Dto.GetInfoByPageInput() { MaxResultCount = 10, SkipCount = 0 });
             return View(ps);
         }
+
+        public async Task<ActionResult> EditInfoModal(int id)
+        {
+            var model = await _infoAppService.Get(id);
+            return View("_EditInfoModal", model);
+        }
     }
 }
