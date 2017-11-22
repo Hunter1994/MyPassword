@@ -45,7 +45,7 @@ namespace MyPassword.Info
             return (await _passwordInfoRepository.GetAsync(id)).MapTo<PasswordInfoDto>();
         }
 
-        public async Task<PagedResultDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input)
+        public async Task<PagedResultExtDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input)
         {
             var query = _passwordInfoRepository.GetAll()
                 .WhereIf(!input.Title.IsNullOrEmpty(), t => t.Title.Contains(input.Title))
@@ -56,7 +56,7 @@ namespace MyPassword.Info
             var data = query.PageBy(input).ToList();
             var total = query.Count();
 
-            return await Task.FromResult(new PagedResultDto<PasswordInfoDto>()
+            return await Task.FromResult(new PagedResultExtDto<PasswordInfoDto>()
             {
                 TotalCount = total,
                 Items = data.MapTo<List<PasswordInfoDto>>()

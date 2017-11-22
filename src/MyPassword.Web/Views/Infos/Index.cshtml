@@ -2,7 +2,9 @@
 @using Abp.Web.Mvc.Extensions
 @using MyPassword.Web.Helpers
 @using System.Web.Optimization
-@model Abp.Application.Services.Dto.PagedResultDto<MyPassword.Info.Dto.PasswordInfoDto> 
+@using MyPassword.Info.Dto
+@using Webdiyer.WebControls.Mvc
+@model MyPassword.PagedResultExtDto<PasswordInfoDto> 
 @{
     ViewBag.ActiveMenu = PageNames.Infos; //The menu item will be active for this page.
 }
@@ -12,20 +14,39 @@
 }
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
         <div class="card">
             <div class="header">
-                <h2>@L("MyPassword")</h2>
+                <h2>信息管理</h2>
+            </div>
+            <div class="body table-responsive">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="标题/用户名">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary material-icons waves-effect waves-black" type="button">search</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h2>&nbsp;</h2>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">more_vert</i>
-                        </a>
+                        </a>    
                         <ul class="dropdown-menu pull-right">
-                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-black"><i class="material-icons">refresh</i>Refresh</a></li>
+                            <li><a href="javascript:void(0);" class="waves-effect waves-black"  data-toggle="modal" data-target="#InfoCreateModal"><i class="material-icons">add</i>添加</a></li>
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-black"><i class="material-icons">refresh</i>刷新</a></li>
                         </ul>
                     </li>
                 </ul>
-            </div>
+             </div>
             <div class="body table-responsive">
                 <table class="table">
                     <thead>
@@ -54,10 +75,23 @@
                        }
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#InfoCreateModal">
+                @*<button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#InfoCreateModal">
                     <i class="material-icons">add</i>
-                </button>
+                </button>*@
+                @Html.Pager(Model.TotalCount, Model.PageSize, Model.PageIndex,
+                    new PagerOptions
+                    {
+                        PageIndexParameterName = "PageIndex",
+                        ContainerTagName = "ul",
+                        CssClass = "pagination",
+                        CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+                        DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+                        PagerItemTemplate = "<li>{0}</li>",
+                        Id = "bootstrappager",
+                        
+                    })
             </div> 
+           
         </div>
      </div>
 </div>
