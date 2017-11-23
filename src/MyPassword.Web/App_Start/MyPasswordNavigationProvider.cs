@@ -58,6 +58,15 @@ namespace MyPassword.Web
                 )
                 .AddItem(
                     new MenuItemDefinition(
+                        PageNames.Infos,
+                        L("Product"),
+                        url: "Product",
+                        icon: "lock",
+                        requiredPermissionName: PermissionNames.Pages_Product
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
                         PageNames.About,
                         L("About"),
                         url: "About",
