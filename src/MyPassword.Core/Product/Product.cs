@@ -13,12 +13,17 @@ namespace MyPassword.Product
     {
         public const int MaxName = 100;
 
-        public Product() { }
 
         public virtual string Name { get; private set; }
         public virtual decimal Price { get; private set; }
-        [Timestamp]
+       
         public virtual int Number { get; private set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+        public Product() { }
+
 
         public void Create(string name, decimal price, int number)
         {
@@ -41,7 +46,7 @@ namespace MyPassword.Product
             this.Number += num;
         }
 
-        public void DeNumber(int num,IProductPolicy policy)
+        public void DeNumber(int num, IProductPolicy policy)
         {
             policy.CheckDeNumber(this, num);
             this.Number = num;
