@@ -48,6 +48,7 @@ namespace MyPassword.Info
         public async Task<PagedResultExtDto<PasswordInfoDto>> GetInfoByPages(GetInfoByPageInput input)
         {
             var query = _passwordInfoRepository.GetAll()
+                .WhereIf(!input.Quick.IsNullOrEmpty(),t=>t.Title.Contains(input.Quick)|| t.UserName.Contains(input.Quick))
                 .WhereIf(!input.Title.IsNullOrEmpty(), t => t.Title.Contains(input.Title))
                 .WhereIf(!input.UserName.IsNullOrEmpty(), t => t.UserName.Contains(input.UserName));
 

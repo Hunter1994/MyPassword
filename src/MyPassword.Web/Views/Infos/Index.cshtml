@@ -19,22 +19,24 @@
             <div class="header">
                 <h2>信息管理</h2>
             </div>
-            <div class="body table-responsive">
+        </div>
+
+        <div class="card">
+            <div class="header">
+                <h2>&nbsp;</h2>
+@using (Html.BeginForm("Index", "Infos", FormMethod.Get))
+{
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="标题/用户名">
+                            <input type="text" class="form-control" name="Quick" placeholder="标题/用户名">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary material-icons waves-effect waves-black" type="button">search</button>
+                                <button class="btn btn-primary material-icons waves-effect waves-black" type="submit">search</button>
                             </span>
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
                 </div><!-- /.row -->
-            </div>
-        </div>
-        <div class="card">
-            <div class="header">
-                <h2>&nbsp;</h2>
+}
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

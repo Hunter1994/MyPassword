@@ -11,6 +11,7 @@ namespace MyPassword.Web.Models.Infos
     public class GetInfoByPagesModel
     {
         public int PageIndex { get; set; }
+        public string Quick { get; set; }
         public string Title { get; set; }
         public string UserName { get; set; }
     }

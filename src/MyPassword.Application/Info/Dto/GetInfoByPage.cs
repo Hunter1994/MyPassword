@@ -12,6 +12,7 @@ namespace MyPassword.Info.Dto
     [AutoMapFrom(typeof(PasswordInfo))]
     public class GetInfoByPageInput: PagedAndSortedResultRequestDto
     {
+        public string Quick { get; set; }
         public string Title { get; set; }
 
         public string UserName { get; set; }
