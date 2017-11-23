@@ -7,13 +7,10 @@ using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using System.ComponentModel.DataAnnotations;
 
-namespace MyPassword.Product
+namespace MyPassword.Core.Product
 {
-    public class Product:FullAuditedEntity
+    public class Product:FullAuditedEntity,IMustHaveTenant
     {
-        public const int MaxName = 100;
-
-
         public virtual string Name { get; private set; }
         public virtual decimal Price { get; private set; }
        
@@ -21,6 +18,8 @@ namespace MyPassword.Product
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        public int TenantId { get; set; }
 
         public Product() { }
 
@@ -36,11 +35,16 @@ namespace MyPassword.Product
             this.Name = name;
         }
 
-        public void UpdatePrice(decimal price)
+        public void UpdatePrice(decimal price, IProductPolicy policy)
         {
+            policy.CheckPrice(price);
             this.Price = price;
         }
-
+        public void UpdateNumber(int number, IProductPolicy policy)
+        { 
+            policy.CheckNumber(number);
+            this.Number = number;
+        }
         public void InNumber(int num)
         {
             this.Number += num;

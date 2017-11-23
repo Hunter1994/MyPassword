@@ -5,6 +5,7 @@ using MyPassword.Authorization.Users;
 using MyPassword.MultiTenancy;
 using System.Data.Entity;
 using MyPassword.Info;
+using MyPassword.Core.Product;
 
 namespace MyPassword.EntityFramework
 {
@@ -13,6 +14,7 @@ namespace MyPassword.EntityFramework
         //TODO: Define an IDbSet for your Entities...
 
         public virtual IDbSet<PasswordInfo> PasswordInfos { get; set; }
+        public virtual IDbSet<Product> Products { get; set; }
 
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.
@@ -22,7 +24,6 @@ namespace MyPassword.EntityFramework
         public MyPasswordDbContext()
             : base("Default")
         {
-
         }
 
         /* NOTE:
