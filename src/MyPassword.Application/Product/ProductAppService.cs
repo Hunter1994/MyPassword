@@ -7,6 +7,8 @@ using MyPassword.Application.Product.Dtos;
 using Abp.AutoMapper;
 using MyPassword.Core.Product;
 using Abp.Domain.Repositories;
+using Abp.Extensions;
+using Abp.Linq.Extensions;
 
 namespace MyPassword.Application.Product
 {
@@ -22,6 +24,7 @@ namespace MyPassword.Application.Product
 
         public async Task Create(CreateProductInput input)
         {
+            var tenant = AbpSession.TenantId;
             MyPassword.Core.Product.Product product = new Core.Product.Product();
             product.UpdateName(input.Name);
             product.UpdateNumber(input.Number, _policy);
@@ -31,13 +34,21 @@ namespace MyPassword.Application.Product
 
         public async Task<ProductDto> Get(int id)
         {
-               
             return (await _productRepository.GetAsync(id)).MapTo<ProductDto>();
         }
 
-        public Task<PagedResultExtDto<ProductDto>> GetPages(GetProductPageInput input)
+        public async Task<PagedResultExtDto<ProductDto>> GetPages(GetProductPageInput input)
         {
-            throw new NotImplementedException();
+            var query = _productRepository.GetAll().WhereIf(!input.Quick.IsNullOrEmpty(), r => r.Name.Contains(input.Quick));
+            query = query.OrderBy(r => r.CreationTime);
+            var count = query.Count();
+            var products = query.PageBy(input).ToList();
+            return await Task.FromResult(new PagedResultExtDto<ProductDto>()
+            {
+                Items = products.MapTo<List<ProductDto>>(),
+                PageSize = input.MaxResultCount,
+                TotalCount = count
+            });
         }
 
         public async Task Update(UpdateProductInput input)
