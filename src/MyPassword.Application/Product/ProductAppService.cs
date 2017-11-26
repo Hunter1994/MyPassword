@@ -9,6 +9,7 @@ using MyPassword.Core.Product;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Application.Features;
 
 namespace MyPassword.Application.Product
 {
@@ -39,6 +40,9 @@ namespace MyPassword.Application.Product
 
         public async Task<PagedResultExtDto<ProductDto>> GetPages(GetProductPageInput input)
         {
+            var t = AbpSession.TenantId;
+
+            var aa = new SimpleFeatureDependency("Product");
             var query = _productRepository.GetAll().WhereIf(!input.Quick.IsNullOrEmpty(), r => r.Name.Contains(input.Quick));
             query = query.OrderBy(r => r.CreationTime);
             var count = query.Count();

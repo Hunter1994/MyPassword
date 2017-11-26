@@ -33,7 +33,7 @@ namespace MyPassword
                     MyPasswordConsts.LocalizationSourceName,
                     new XmlEmbeddedFileLocalizationDictionaryProvider(
                         Assembly.GetExecutingAssembly(),
-                        "MyPassword.Localization.Source"
+                        "MyPassword.Core.Localization.Source"
                         )
                     )
                 );

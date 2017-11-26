@@ -21,6 +21,13 @@
             });
         });
 
+        $(".edit-info").click(function (e) {
+            var id = $(this).attr("data-info-id");
+            e.preventDefault();
+
+
+
+        })
 
         function refresh()
         {

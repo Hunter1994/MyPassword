@@ -1,4 +1,5 @@
-﻿using Abp.Application.Navigation;
+﻿using Abp.Application.Features;
+using Abp.Application.Navigation;
 using Abp.Localization;
 using MyPassword.Authorization;
 
@@ -14,6 +15,8 @@ namespace MyPassword.Web
     {
         public override void SetNavigation(INavigationProviderContext context)
         {
+
+            var aa = new SimpleFeatureDependency("Product");
             context.Manager.MainMenu
                 .AddItem(
                     new MenuItemDefinition(
@@ -62,7 +65,8 @@ namespace MyPassword.Web
                         L("Product"),
                         url: "Product",
                         icon: "lock",
-                        requiredPermissionName: PermissionNames.Pages_Product
+                        requiredPermissionName: PermissionNames.Pages_Product,
+                        featureDependency: new SimpleFeatureDependency("Product")
                     )
                 )
                 .AddItem(

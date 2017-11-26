@@ -9,6 +9,7 @@ using MyPassword.Authorization.Roles;
 using MyPassword.Authorization.Users;
 using MyPassword.Roles.Dto;
 using MyPassword.Users.Dto;
+using MyPassword.Application.Features;
 
 namespace MyPassword
 {
@@ -17,6 +18,7 @@ namespace MyPassword
     {
         public override void PreInitialize()
         {
+            Configuration.Features.Providers.Add<MyPasswordFeatureProvider>();
         }
 
         public override void Initialize()
