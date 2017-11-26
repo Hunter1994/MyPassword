@@ -38,11 +38,11 @@ namespace MyPassword.Application.Product
             return (await _productRepository.GetAsync(id)).MapTo<ProductDto>();
         }
 
+        [RequiresFeature("Product")]
         public async Task<PagedResultExtDto<ProductDto>> GetPages(GetProductPageInput input)
         {
             var t = AbpSession.TenantId;
 
-            var aa = new SimpleFeatureDependency("Product");
             var query = _productRepository.GetAll().WhereIf(!input.Quick.IsNullOrEmpty(), r => r.Name.Contains(input.Quick));
             query = query.OrderBy(r => r.CreationTime);
             var count = query.Count();
