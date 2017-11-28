@@ -13,7 +13,7 @@ namespace MyPassword.Authorization
             context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             context.CreatePermission(PermissionNames.Pages_Info, L("Info"));
-            context.CreatePermission(PermissionNames.Pages_Product, L("Product"));
+            context.CreatePermission(PermissionNames.Pages_Product, L("Product"),featureDependency:new SimpleFeatureDependency("Product"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
         }
 
