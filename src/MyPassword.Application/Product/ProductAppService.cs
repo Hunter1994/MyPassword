@@ -10,6 +10,7 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Application.Features;
+using MyPassword.Application.Features;
 
 namespace MyPassword.Application.Product
 {
@@ -38,10 +39,10 @@ namespace MyPassword.Application.Product
             return (await _productRepository.GetAsync(id)).MapTo<ProductDto>();
         }
 
-        [RequiresFeature("Product")]
         public async Task<PagedResultExtDto<ProductDto>> GetPages(GetProductPageInput input)
         {
-            var t = AbpSession.TenantId;
+
+            var c = FeatureChecker.GetValue(MyPasswordFeatureProvider.Names.MaxContactCount).To<int>();
 
             var query = _productRepository.GetAll().WhereIf(!input.Quick.IsNullOrEmpty(), r => r.Name.Contains(input.Quick));
             query = query.OrderBy(r => r.CreationTime);

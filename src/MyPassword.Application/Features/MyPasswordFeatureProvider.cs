@@ -13,12 +13,13 @@ namespace MyPassword.Application.Features
     {
         public static class Names {
             public const string Contacts = "Product";
-            public const string MaxContactCount = "ContactManager.MaxContactCount";
+            public const string MaxContactCount = "Count";
         }
 
         public override void SetFeatures(IFeatureDefinitionContext context)
         {
             var contacts = context.Create(Names.Contacts, "true");
+            context.Create(Names.MaxContactCount, "10",scope:FeatureScopes.Tenant);
             //contacts.CreateChildFeature(Names.MaxContactCount, "100", inputType: new SingleLineStringInputType(new NumericValueValidator(1, 10000)));
         }
     }
