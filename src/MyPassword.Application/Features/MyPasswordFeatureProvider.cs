@@ -19,8 +19,7 @@ namespace MyPassword.Application.Features
         public override void SetFeatures(IFeatureDefinitionContext context)
         {
             var contacts = context.Create(Names.Contacts, "true");
-            context.Create(Names.MaxContactCount, "10",scope:FeatureScopes.Tenant);
-            //contacts.CreateChildFeature(Names.MaxContactCount, "100", inputType: new SingleLineStringInputType(new NumericValueValidator(1, 10000)));
+            context.Create(Names.MaxContactCount, "10");
         }
     }
 }

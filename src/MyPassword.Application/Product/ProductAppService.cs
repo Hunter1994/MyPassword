@@ -38,7 +38,13 @@ namespace MyPassword.Application.Product
 
         public async Task Create(CreateProductInput input)
         {
-            //TenantManager.SetFeatureValue(1, "Product", "false");
+            //_abpEditionManager.SetFeatureValueAsync()
+            //    TenantManager.SetFeatureValue(2, "Count", "20");
+            //    TenantManager.SetFeatureValue(3, "Count", "30");
+            var a = FeatureChecker.GetValue("Count").To<int>();
+            var v = 1;
+
+            //TenantManager.SetFeatureValue()
 
             //添加版本
             //await _abpEditionManager.CreateAsync(new Edition("Enterprise"));
