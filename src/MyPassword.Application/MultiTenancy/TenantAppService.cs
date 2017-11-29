@@ -59,7 +59,6 @@ namespace MyPassword.MultiTenancy
             {
                 tenant.EditionId = defaultEdition.Id;
             }
-
             await _tenantManager.CreateAsync(tenant);
             await CurrentUnitOfWork.SaveChangesAsync(); //To get new tenant's id.
 

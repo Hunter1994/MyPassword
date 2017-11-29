@@ -10,27 +10,46 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Application.Features;
+using Abp.MultiTenancy;
+using Abp.Zero;
+using Abp.Application.Editions;
 
 namespace MyPassword.Application.Product
 {
     public class ProductAppService :MyPasswordAppServiceBase, IProductAppService
     {
+        private readonly IRepository<TenantFeatureSetting, long> _tenantFeatureRepository;
         private readonly IRepository<MyPassword.Core.Product.Product> _productRepository;
         private readonly IProductPolicy _policy;
-        public ProductAppService(IRepository<MyPassword.Core.Product.Product> productRepository, IProductPolicy policy)
+        private readonly IAbpZeroFeatureValueStore _abpZeroFeatureValueStore;
+        private readonly AbpEditionManager _abpEditionManager;
+        public ProductAppService(IRepository<MyPassword.Core.Product.Product> productRepository, 
+            IProductPolicy policy, 
+            IRepository<TenantFeatureSetting, long> tenantFeatureRepository,
+            IAbpZeroFeatureValueStore abpZeroFeatureValueStore,
+            AbpEditionManager abpEditionManager)
         {
+            _abpEditionManager = abpEditionManager;
+            _tenantFeatureRepository = tenantFeatureRepository;
             _productRepository = productRepository;
             _policy = policy;
-        }
+            _abpZeroFeatureValueStore = abpZeroFeatureValueStore;
+    }
 
         public async Task Create(CreateProductInput input)
         {
-            var tenant = AbpSession.TenantId;
-            MyPassword.Core.Product.Product product = new Core.Product.Product();
-            product.UpdateName(input.Name);
-            product.UpdateNumber(input.Number, _policy);
-            product.UpdatePrice(input.Price, _policy);
-            await _productRepository.InsertAsync(product);
+            //TenantManager.SetFeatureValue(1, "Product", "false");
+
+            //添加版本
+            //await _abpEditionManager.CreateAsync(new Edition("Enterprise"));
+            //FeatureChecker.CheckEnabled("Product");
+            // await _abpZeroFeatureValueStore.SetEditionFeatureValueAsync(1, "Product", "false");
+            //var tenant = AbpSession.TenantId;
+            //MyPassword.Core.Product.Product product = new Core.Product.Product();
+            //product.UpdateName(input.Name);
+            //product.UpdateNumber(input.Number, _policy);
+            //product.UpdatePrice(input.Price, _policy);
+            //await _productRepository.InsertAsync(product);
         }
 
         public async Task<ProductDto> Get(int id)
@@ -38,11 +57,8 @@ namespace MyPassword.Application.Product
             return (await _productRepository.GetAsync(id)).MapTo<ProductDto>();
         }
 
-        [RequiresFeature("Product")]
         public async Task<PagedResultExtDto<ProductDto>> GetPages(GetProductPageInput input)
         {
-            var t = AbpSession.TenantId;
-
             var query = _productRepository.GetAll().WhereIf(!input.Quick.IsNullOrEmpty(), r => r.Name.Contains(input.Quick));
             query = query.OrderBy(r => r.CreationTime);
             var count = query.Count();

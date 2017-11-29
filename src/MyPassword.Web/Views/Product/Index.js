@@ -14,8 +14,8 @@
             var product = _$form.serializeFormToObject();
             abp.ui.setBusy(_$modal);
             _appService.create(product).done(function () {
-                _$modal.hide('hide');
-                refresh();
+                //_$modal.hide('hide');
+                //refresh();
             }).always(function () {
                 abp.ui.clearBusy(_$modal);
             });
