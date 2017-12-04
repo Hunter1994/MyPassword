@@ -11,9 +11,12 @@ using MyPassword.Info;
 using Abp.AutoMapper;
 using Abp.Linq.Extensions;
 using Abp.Extensions;
+using MyPassword.Authorization;
+using Abp.Authorization;
 
 namespace MyPassword.Info
 {
+    [AbpAuthorize(PermissionNames.Pages_Info)]
     public class InfoAppService : ApplicationService, IInfoAppService
     {
         private readonly IRepository<PasswordInfo> _passwordInfoRepository;

@@ -34,6 +34,7 @@ namespace MyPassword.Api.Controllers
             LocalizationSourceName = MyPasswordConsts.LocalizationSourceName;
         }
 
+        //获取访问令牌
         [HttpPost]
         public async Task<AjaxResponse> Authenticate(LoginModel loginModel)
         {
@@ -50,7 +51,6 @@ namespace MyPassword.Api.Controllers
             var currentUtc = new SystemClock().UtcNow;
             ticket.Properties.IssuedUtc = currentUtc;
             ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromMinutes(30));
-
             return new AjaxResponse(OAuthBearerOptions.AccessTokenFormat.Protect(ticket));
         }
 

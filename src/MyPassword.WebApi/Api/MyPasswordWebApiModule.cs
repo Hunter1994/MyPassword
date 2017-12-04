@@ -18,6 +18,7 @@ namespace MyPassword.Api
                 .ForAll<IApplicationService>(typeof(MyPasswordApplicationModule).Assembly, "app")
                 .Build();
 
+            //添加访问令牌类型（Access Token Types）过滤（不加这句话也支持Bearer）
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));
         }
     }
