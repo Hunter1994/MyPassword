@@ -13,7 +13,6 @@ namespace MyPassword.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MyPassword";
         }
 
         protected override void Seed(MyPassword.EntityFramework.MyPasswordDbContext context)
