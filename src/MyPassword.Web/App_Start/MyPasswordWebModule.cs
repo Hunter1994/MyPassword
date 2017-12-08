@@ -44,6 +44,9 @@ namespace MyPassword.Web
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
 
+
+            //将IAuthenticationManager注册为HttpContext.Current.GetOwinContext().Authentication
+            //AccountController控制器需要IAuthenticationManager
             IocManager.IocContainer.Register(
                 Component
                     .For<IAuthenticationManager>()
