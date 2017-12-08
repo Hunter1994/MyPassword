@@ -9,13 +9,6 @@ namespace MyPassword
     [DependsOn(typeof(AbpZeroEntityFrameworkModule), typeof(MyPasswordCoreModule))]
     public class MyPasswordDataModule : AbpModule
     {
-        public override void PreInitialize()
-        {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MyPasswordDbContext>());
-
-            Configuration.DefaultNameOrConnectionString = "Default";
-        }
-
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
